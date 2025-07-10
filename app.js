@@ -93,6 +93,16 @@ app.use((req,res,next)=>{
     next();
 })
 
+// about route
+app.get("/about", (req, res) => {
+    res.render("./listing/about.ejs")
+})
+
+// contact route 
+app.get("/contact", (req, res) => {
+    res.render("./listing/contact.ejs")
+})
+
 // app.get("/demouser",async (req,res)=>{
 //    let fakeuser = new User({
 //     email:"studendent@gmail.com",
