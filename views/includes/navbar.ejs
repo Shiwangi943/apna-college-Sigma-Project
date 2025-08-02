@@ -19,13 +19,38 @@
     font-size: 1rem;
   }
 </style>
+<script>
+  function toggleDrawer(open) {
+    const drawer = document.getElementById("mobileDrawer");
+    const backdrop = document.getElementById("drawerBackdrop");
+
+    if (!drawer || !backdrop) return;
+
+    if (open) {
+      drawer.style.transform = "translateX(0)";
+      drawer.style.display = "block";
+      backdrop.style.display = "block";
+    } else {
+      drawer.style.transform = "translateX(-100%)";
+      backdrop.style.display = "none";
+      setTimeout(() => {
+        drawer.style.display = "none";
+      }, 300);
+    }
+  }
+</script>
+
 
   <!-- 🌐 Navbar -->
 <nav class="navbar navbar-expand-sm bg-light px-3 mb-3 border-bottom sticky-top navtop">
   <div class="container-fluid">
-       <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
+       <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i><b>WandarLust</b> </a>
   
-  
+  <!-- Hamburger button for mobile drawer -->
+    <button class="navbar-toggler d-sm-none" type="button" aria-label="Toggle navigation" onclick="toggleDrawer(true)">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
 
     <!-- Desktop navbar -->
     <div class="d-none d-sm-flex align-items-center flex-grow-1 justify-content-between">
@@ -97,3 +122,33 @@
     </div>
   </div>
 </nav>
+<!-- 📱 Mobile Side Drawer -->
+<div id="mobileDrawer" class="mobile-drawer">
+  <button class="close-drawer" aria-label="Close Drawer" onclick="toggleDrawer(false)">&times;</button>
+
+  <form class="d-flex align-items-center px-3 mb-3" role="search">
+    <input class="form-control me-2 search" type="search" placeholder="Search Stays..." aria-label="Search"
+      style="max-width: 250px;">
+    <button class="btn btn-outline-danger d-flex align-items-center gap-2 search" type="submit">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span class="d-none d-sm-inline">Search</span>
+    </button>
+  </form>
+
+  <ul class="drawer-nav">
+    <li><a href="/listings" class="drawer-link"><i class="fa-solid fa-house me-2"></i> Explore</a></li>
+    <li><a href="/listings/new" class="drawer-link"><i class="fa-solid fa-plus me-2"></i> Host Your Stay</a></li>
+
+    <% if (!currUser) { %>
+      <li><a href="/signup" class="drawer-link"><i class="fa-solid fa-user-plus me-2"></i> Sign Up</a></li>
+      <li><a href="/login" class="drawer-link"><i class="fa-solid fa-right-to-bracket me-2"></i> Login</a></li>
+    <% } else { %>
+      <li><a href="/logout" class="drawer-link"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+    <% } %>
+
+    <li><a href="/about" class="drawer-link"><i class="fa-solid fa-circle-info me-2"></i> About</a></li>
+    <li><a href="/contact" class="drawer-link"><i class="fa-solid fa-envelope me-2"></i> Contact</a></li>
+  </ul>
+</div>
+
+<div id="drawerBackdrop" class="mobile-drawer-backdrop" onclick="toggleDrawer(false)"></div>
